@@ -256,6 +256,7 @@ h2 {
   align-items: center;
   position: relative;
   overflow: hidden;
+  background: var(--bg-gradient); /* Добавлен фон для hero */
 }
 
 .hero-background {
@@ -407,8 +408,9 @@ h2 {
 
 /* Enhanced Skills Section */
 .skills-section {
-  padding: 8rem 0;
+  padding: 8rem 0; /* Исправлено: добавлен padding */
   position: relative;
+  background: var(--bg-gradient); /* Добавлен фон */
 }
 
 .section-header {
@@ -728,6 +730,7 @@ h2 {
 .projects-section {
   padding: 8rem 0;
   background: var(--bg-primary);
+  position: relative;
 }
 
 .projects-badge {
@@ -746,33 +749,38 @@ h2 {
   backdrop-filter: blur(10px);
 }
 
+/* НОВАЯ СТРУКТУРА PROJECTS CONTENT */
 .projects-content {
-  display: grid;
-  grid-template-columns: 400px 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 3rem;
   margin-top: 3rem;
 }
 
-.projects-sidebar {
-  position: sticky;
-  top: 100px;
-  height: fit-content;
+.projects-selector-wrapper {
+  width: 100%;
+  order: 1;
 }
 
-.projects-detail {
-  min-height: 600px;
+.project-details {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.project-showcase {
-  height: 100%;
+.project-carousel-wrapper {
+  order: 3;
+  margin-top: 1rem;
 }
 
 .project-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 2rem;
-  gap: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .project-title {
@@ -786,15 +794,16 @@ h2 {
   color: var(--text-white);
   font-size: 2rem;
   font-weight: 600;
+  margin: 0;
 }
 
 .project-icon {
-  font-size: 3rem;
+  font-size: 2.5rem;
   background: var(--bg-glass);
   backdrop-filter: blur(10px);
   border-radius: var(--radius-xl);
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -804,7 +813,8 @@ h2 {
 .project-tech-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .tech-badge {
@@ -825,10 +835,10 @@ h2 {
 
 .project-description {
   color: var(--text-on-dark);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
+  font-size: 1.125rem;
+  line-height: 1.7;
   opacity: 0.9;
+  margin: 0;
 }
 
 /* Enhanced Project Cards */
@@ -997,6 +1007,7 @@ h2 {
   gap: 0.75rem;
   position: relative;
   overflow: hidden;
+  text-decoration: none;
 }
 
 .cta-button::before {
@@ -1119,7 +1130,7 @@ h2 {
   border-radius: var(--radius-2xl);
   padding: 3rem;
   box-shadow: var(--shadow-lg);
-  margin-top: 3rem;
+  margin-top: 2rem;
   backdrop-filter: blur(20px);
   animation: fadeInUp 0.6s ease-out;
 }
@@ -1388,12 +1399,7 @@ h2 {
 /* Enhanced Responsive Design */
 @media (max-width: 1024px) {
   .projects-content {
-    grid-template-columns: 1fr;
     gap: 2rem;
-  }
-  
-  .projects-sidebar {
-    position: static;
   }
   
   .hero-title {
@@ -1483,6 +1489,18 @@ h2 {
   .project-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .project-title {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .project-tech-stack {
+    justify-content: center;
+    width: 100%;
   }
   
   .project-card {
@@ -1491,7 +1509,7 @@ h2 {
     gap: 1.5rem;
   }
   
-  .project-icon {
+  .project-card .project-icon {
     align-self: center;
   }
   
@@ -1570,7 +1588,7 @@ h2 {
     padding: 1.5rem;
   }
 
-  .experience-badge,
+  .experience-tag,
   .contact-item {
     padding: 0.75rem 1.25rem;
   }

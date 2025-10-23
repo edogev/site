@@ -140,7 +140,6 @@ export default function Home({ scrollToSection }) {
         </div>
         <div className="container">
           <div className="hero-content">
-            <div className="hero-badge">BI Analyst & Data Analyst</div>
             <h1 className="hero-title">
               <span className="title-line">Геворкян</span>
               <span className="title-line accent">Эдуард Меликович</span>

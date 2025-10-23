@@ -42,7 +42,8 @@ export default function Bots() {
         </div>
 
         <div className="projects-content">
-          <div className="projects-sidebar">
+          {/* Карточки проектов сверху */}
+          <div className="projects-selector-wrapper">
             <BotSelector 
               bots={botsData} 
               onSelect={setSelectedBot}
@@ -50,25 +51,28 @@ export default function Bots() {
             />
           </div>
           
-          <div className="projects-detail">
-            {selectedBot && (
-              <div className="project-showcase">
-                <div className="project-header">
-                  <div className="project-title">
-                    <span className="project-icon">{selectedBot.icon}</span>
-                    <h3>{selectedBot.name}</h3>
-                  </div>
-                  <div className="project-tech-stack">
-                    {selectedBot.technologies?.map((tech, index) => (
-                      <span key={index} className="tech-badge">{tech}</span>
-                    ))}
-                  </div>
+          {/* Описание проекта */}
+          {selectedBot && (
+            <div className="project-details">
+              <div className="project-header">
+                <div className="project-title">
+                  <span className="project-icon">{selectedBot.icon}</span>
+                  <h3>{selectedBot.name}</h3>
                 </div>
-                <p className="project-description">{selectedBot.description}</p>
+                <div className="project-tech-stack">
+                  {selectedBot.technologies?.map((tech, index) => (
+                    <span key={index} className="tech-badge">{tech}</span>
+                  ))}
+                </div>
+              </div>
+              <p className="project-description">{selectedBot.description}</p>
+              
+              {/* Карусель в самом низу */}
+              <div className="project-carousel-wrapper">
                 <BotCarousel slides={selectedBot.slides} />
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         <div className="projects-cta">
