@@ -16,7 +16,7 @@ export const botsData = [
           "Асинхронная обработка запросов",
           "Встроенная система экспорта в Excel"
         ],
-        image: "src/img/mercher/Mercher главное меню.png"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/mercher/Mercher%20главное%20меню.png"
       },
       {
         title: "🎯 Ключевой функционал",
@@ -27,7 +27,7 @@ export const botsData = [
           "Детальная история транзакций",
           "Интеграция с онлайн-магазином мерча"
         ],
-        image: "/workspaces/site/src/img/mercher/Mercher главное меню.png"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/mercher/BP-1024x952.png"
       },
       {
         title: "📊 Аналитика и отчетность",
@@ -38,7 +38,7 @@ export const botsData = [
           "Отслеживание активности преподавателей",
           "Балансовая ведомость по ученикам"
         ],
-        image: "/api/placeholder/600/400"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/mercher/5-2-1024x857.png"
       }
     ]
   },
