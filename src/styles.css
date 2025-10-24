@@ -14,7 +14,7 @@
   --premium: #9c27b0;
   
   /* Enhanced Text Colors - Light */
-  --text-primary: #202124;
+  --text-primary: #0c246d;
   --text-secondary: #5f6368;
   --text-tertiary: #80868b;
   --text-white: #ffffff;
@@ -83,6 +83,7 @@ body {
 
 /* Enhanced Background Animation - Light Theme */
 .background-animation {
+
   position: fixed;
   top: 0;
   left: 0;
@@ -493,8 +494,17 @@ body {
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
-  color: var(--text-primary);
+  /* color: var(--text-primary); */
+background: linear-gradient(135deg, var(--text-primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+
 }
+
+
+
 
 .title-line {
   display: block;
@@ -505,6 +515,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  padding: 5px;
 }
 
 .hero-subtitle {
@@ -1700,8 +1711,8 @@ button:focus-visible,
 .carousel-nav-btn:focus-visible,
 .indicator:focus-visible {
   outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
+    outline-offset: 2px;
+    }
 
 /* Selection Styles - Light */
 ::selection {
