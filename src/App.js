@@ -54,7 +54,7 @@ function App() {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="nav-content">
           <div className="logo" onClick={() => scrollToSection('home')}>
-            <span className="logo-icon">  <img src="/workspaces/site/src/img/logo.png" />
+            <span className="logo-icon">  <img src="https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/logo2.png" />
 </span>
             DataPulse Analytics
           </div>
