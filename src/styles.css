@@ -15,8 +15,8 @@
   
   /* Enhanced Text Colors - Light */
   --text-primary: #0c246d;
-  --text-secondary: #5f6368;
-  --text-tertiary: #80868b;
+  --text-secondary: #555555;
+  --text-tertiary: #5c7486;
   --text-white: #ffffff;
   --text-on-light: #3c4043;
   
@@ -234,11 +234,11 @@ body {
 }
 
 .floating-element.el-1 {
-  width: 400px;
-  height: 400px;
+  width: 600px;
+  height: 600px;
   top: 10%;
   left: 10%;
-  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--primary) 40%, transparent 80%);
   animation-delay: 0s;
 }
 
@@ -247,7 +247,7 @@ body {
   height: 300px;
   top: 60%;
   right: 10%;
-  background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--primary) 40%, transparent 80%);
   animation-delay: -5s;
 }
 
@@ -256,7 +256,7 @@ body {
   height: 250px;
   bottom: 20%;
   left: 20%;
-  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--primary) 40%, transparent 80%);
   animation-delay: -10s;
 }
 
