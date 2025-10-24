@@ -5,7 +5,7 @@
   /* Premium Color Palette - Light */
   --primary: #1a73e8;
   --primary-dark: #0d62c9;
-  --primary-light: #4285f4;
+  --primary-light: #0241a8;
   --secondary: #34a853;
   --accent: #fbbc04;
   --success: #00c851;
@@ -204,8 +204,8 @@ body {
   position: relative;
   overflow: hidden;
   background: 
-    radial-gradient(ellipse at top left, rgba(26, 115, 232, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(52, 168, 83, 0.06) 0%, transparent 50%);
+    radial-gradient(ellipse at top left, rgba(26, 115, 232, 0.08) 0%, transparent 10%),
+    radial-gradient(ellipse at bottom right, rgba(52, 168, 83, 0.06) 0%, transparent 30%);
   z-index: 1;
 }
 
@@ -227,7 +227,7 @@ body {
 .floating-element {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--primary-light) 0%, transparent 80%);
   filter: blur(40px);
   opacity: 0.08;
   animation: floatElement3d 15s infinite ease-in-out;
@@ -236,8 +236,8 @@ body {
 .floating-element.el-1 {
   width: 600px;
   height: 600px;
-  top: 10%;
-  left: 10%;
+  top: 30%;
+  left: 30%;
   background: radial-gradient(circle, var(--primary) 40%, transparent 80%);
   animation-delay: 0s;
 }
@@ -246,7 +246,7 @@ body {
   width: 300px;
   height: 300px;
   top: 60%;
-  right: 10%;
+  right: 20%;
   background: radial-gradient(circle, var(--primary) 40%, transparent 80%);
   animation-delay: -5s;
 }
