@@ -64,16 +64,8 @@ const calculateTotalExperience = () => {
   return formatExperience(totalMonths);
 };
 
+//SkillLevel
 const SkillLevel = ({ level }) => {
-  const getLevelText = () => {
-    switch(level) {
-      case 'advanced': return 'Продвинутый';
-      case 'intermediate': return 'Средний';
-      case 'beginner': return 'Начальный';
-      default: return level;
-    }
-  };
-
   const getLevelColor = () => {
     switch(level) {
       case 'advanced': return 'var(--success)';
@@ -109,25 +101,9 @@ const SkillLevel = ({ level }) => {
     );
   };
 
-  const renderGlowIndicator = () => {
-    return (
-      <div 
-        className="skill-glow-indicator"
-        style={{
-          boxShadow: `0 0 20px ${getLevelColor()}40`,
-          border: `2px solid ${getLevelColor()}30`
-        }}
-      ></div>
-    );
-  };
-
   return (
     <div className="skill-level">
-      <div className="level-info">
-        <span className="level-text">{getLevelText()}</span>
-        {renderLevelBars()}
-      </div>
-      {renderGlowIndicator()}
+      {renderLevelBars()}
     </div>
   );
 };
@@ -234,33 +210,36 @@ export default function Home({ scrollToSection }) {
             </p>
           </div>
           
-          <div className="skills-grid">
-            {skillsData.map((skill, index) => {
-              const experienceMonths = calculateExperience(skill.startDate);
-              const experienceFormatted = formatExperience(experienceMonths);
-              
-              return (
-                <div key={index} className="skill-card" style={{animationDelay: `${index * 0.1}s`}}>
-                  <div className="skill-header">
-                    <h3>{skill.name}</h3>
-                    <span className="experience-tag">{experienceFormatted}</span>
-                  </div>
-                  <p>{skill.description}</p>
-                  <SkillLevel level={skill.level} />
-                  <div className="skill-meta">
-                    <span className="meta-item">
-                      <Icon name="rocket" className="meta-icon" />
-                      {skill.level === 'advanced' ? 'Эксперт' : skill.level === 'intermediate' ? 'Опытный' : 'Начальный'}
-                    </span>
-                    <span className="meta-item">
-                      <Icon name="calendar" className="meta-icon" />
-                      с {new Date(skill.startDate).getFullYear()}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
+<div className="skills-grid">
+  {skillsData.map((skill, index) => {
+    const experienceMonths = calculateExperience(skill.startDate);
+    const experienceFormatted = formatExperience(experienceMonths);
+    
+    return (
+      <div key={index} className="skill-card" style={{animationDelay: `${index * 0.1}s`}}>
+        <div className="skill-header">
+          <h3>{skill.name}</h3>
+          <span className="experience-tag">{experienceFormatted}</span>
+        </div>
+        <p>{skill.description}</p>
+        
+        <div className="skill-footer">
+          <div className="skill-meta">
+            <span className="meta-item">
+              <Icon name="rocket" className="meta-icon" />
+              {skill.level === 'advanced' ? 'Эксперт' : skill.level === 'intermediate' ? 'Опытный' : 'Начальный'}
+            </span>
+            <span className="meta-item">
+              <Icon name="calendar" className="meta-icon" />
+              с {new Date(skill.startDate).getFullYear()}
+            </span>
           </div>
+          <SkillLevel level={skill.level} />
+        </div>
+      </div>
+    );
+  })}
+</div>
         </div>
       </section>
 
