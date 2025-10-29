@@ -81,6 +81,42 @@ body {
   position: relative;
 }
 
+
+/* Стили иконок */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-icon {
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.contact-item:hover .contact-icon {
+  color: var(--primary);
+}
+
+.button-icon {
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .button-icon {
+  transform: translateX(3px);
+}
+
+.meta-icon {
+  color: var(--text-secondary);
+  margin-right: 4px;
+}
+
+.badge-icon {
+  color: var(--success);
+  margin-right: 6px;
+}
+
 /* Enhanced Background Animation - Light Theme */
 .background-animation {
 
@@ -155,6 +191,9 @@ body {
   filter: blur(15px);
   opacity: 0.1;
 }
+
+
+
 
 @keyframes shapeFloat {
   0%, 100% {

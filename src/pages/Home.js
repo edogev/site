@@ -2,6 +2,8 @@
 
 import { personalInfo, skillsData, workExperience } from '../data/data.js';
 import { useEffect, useRef } from 'react';
+import Icon from '../components/Icon'; // Добавляем импорт
+
 
 // Функции для расчета опыта остаются без изменений
 const calculateExperience = (startDate, endDate = null) => {
@@ -170,7 +172,7 @@ export default function Home({ scrollToSection }) {
                 onClick={() => scrollToSection('projects')}
               >
                 <span>Смотреть проекты</span>
-                <span className="button-icon">→</span>
+                <Icon name="arrow" className="button-icon" />
               </button>
               <button 
                 className="cta-button secondary"
@@ -182,31 +184,17 @@ export default function Home({ scrollToSection }) {
 
             <div className="contact-info">
               <a href={`tel:${personalInfo.contacts.phone}`} className="contact-item">
-                <span className="contact-icon">📱</span>
+                <Icon name="phone" className="contact-icon" />
                 <span>{personalInfo.contacts.phone}</span>
               </a>
               <a href={`mailto:${personalInfo.contacts.email}`} className="contact-item">
-                <span className="contact-icon">✉️</span>
+                <Icon name="mail" className="contact-icon" />
                 <span>{personalInfo.contacts.email}</span>
               </a>
               <div className="contact-item">
-  <span
-    className="contact-icon"
-    style={{
-      backgroundImage: "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAflBMVEX///8mouEjod0npOMnpuUkn9wop+crqegnouQjoN0pqeslpeQlo+EnpeQjoNwjn9wkot4mpOMpqesop+gmp+hZuup4x+48sOpAr+Z5yPHF5/fx+f3+//+p2/Tm9fwpp+Y4q+Vswey54vZivuxHs+iS0vDa8Pqz3/Ukod4jn9sHi7xwAAAAEXRSTlMAKmyR2jaX/BrqwkGJ7cLa9yvdWAsAAAFTSURBVDjLdVPhwoIgDEQhETQT0jJT08q093/BDxn4idr9cJM7boIbQjM8HxMhpSDY99AWh4BQaUBJcFjRIWbSAcOhs53LDfjCJCJyBySa9+/ySmE8Qi5/gMN3xOefiHUBtiWyDCKbigRbVuaXK+SBuj+yos/FrbxXN/AgHvKFs5nmdVMpXEAgfIQfM7Ks7Z73SuOVwRpGxLBCPN79R1FNryzubwHLBB0F4GG8h7xWz09rlo8IovVuLsUwxZIagQABHaDy890+dVKLWcB06Abl39xoUYKytzxDxGTXV1eIq+GrzgoIwmKBzvDqEAYY+eNCQHu4hvkQo6+uemkhcl2knCuo9g1GB+1kUtu3QP9uVzHm5Sc3qf7dKF4JRtraLIaWS8YfSELb9Pv8f+NHuwoeLQYn+W6QONMXxsylWRyuhxefUsumJ3zYmW81/pylKePO+P8BIEpOPdJfx5cAAAAASUVORK5CYII=')",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "contain",
-      display: "inline-block",
-      width: "20px", // Укажите нужный размер
-      height: "20px", // Укажите нужный размер
-    }}
-  />
-            <span>{personalInfo.contacts.telegram}</span>
+                <Icon name="telegram" className="contact-icon" />
+                <span>{personalInfo.contacts.telegram}</span>
               </div>
-              {/* <div className="contact-item">
-                <span className="contact-icon">📍</span>
-                <span>{personalInfo.contacts.location}</span>
-              </div> */}
             </div>
           </div>
         </div>
@@ -239,8 +227,14 @@ export default function Home({ scrollToSection }) {
                     experienceMonths={experienceMonths}
                   />
                   <div className="skill-meta">
-                    <span className="meta-item">🚀 {skill.level === 'advanced' ? 'Эксперт' : skill.level === 'intermediate' ? 'Опытный' : 'Начальный'}</span>
-                    <span className="meta-item">📅 с {new Date(skill.startDate).getFullYear()}</span>
+                    <span className="meta-item">
+                      <Icon name="rocket" className="meta-icon" />
+                      {skill.level === 'advanced' ? 'Эксперт' : skill.level === 'intermediate' ? 'Опытный' : 'Начальный'}
+                    </span>
+                    <span className="meta-item">
+                      <Icon name="calendar" className="meta-icon" />
+                      с {new Date(skill.startDate).getFullYear()}
+                    </span>
                   </div>
                 </div>
               );
@@ -285,7 +279,7 @@ export default function Home({ scrollToSection }) {
                       ))}
                     </ul>
                     <div className="achievement-badge">
-                      <span>🎯</span>
+                      <Icon name="target" className="badge-icon" />
                       <span>Успешных проектов: {job.responsibilities.length}</span>
                     </div>
                   </div>
