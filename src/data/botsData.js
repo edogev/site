@@ -69,7 +69,7 @@ export const botsData = [
           "Контроль выполнения через фотоотчеты",
           "Прогресс выполнения в реальном времени"
         ],
-        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/menu.png"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/menu.jpg"
       },
       {
         title: "📸 Система фотоотчетов",
@@ -80,7 +80,7 @@ export const botsData = [
           "Архивирование фотоматериалов",
           "Просмотр фотоистории по объектам"
         ],
-        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/created_task.png"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/created_task.jpg"
       },
       {
         title: "📈 Отчетность и аналитика",
@@ -91,7 +91,7 @@ export const botsData = [
           "Архивирование фотоотчетов по объектам",
           "Статистика по исполнителям и срокам"
         ],
-        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/statistic.png"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/statistic.jpg"
       }
     ]
   }
