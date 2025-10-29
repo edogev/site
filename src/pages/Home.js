@@ -2,8 +2,7 @@
 
 import { personalInfo, skillsData, workExperience } from '../data/data.js';
 import { useEffect, useRef } from 'react';
-import Icon from '../components/Icon'; // Добавляем импорт
-
+import Icon from '../components/Icon';
 
 // Функции для расчета опыта остаются без изменений
 const calculateExperience = (startDate, endDate = null) => {
@@ -65,12 +64,7 @@ const calculateTotalExperience = () => {
   return formatExperience(totalMonths);
 };
 
-const SkillLevel = ({ level, experienceMonths }) => {
-  const getPercentage = () => {
-    const maxMonths = 60;
-    return Math.min((experienceMonths / maxMonths) * 100, 100);
-  };
-
+const SkillLevel = ({ level }) => {
   const getLevelText = () => {
     switch(level) {
       case 'advanced': return 'Продвинутый';
@@ -89,21 +83,51 @@ const SkillLevel = ({ level, experienceMonths }) => {
     }
   };
 
+  const getLevelValue = () => {
+    switch(level) {
+      case 'advanced': return 3;
+      case 'intermediate': return 2;
+      case 'beginner': return 1;
+      default: return 0;
+    }
+  };
+
+  const renderLevelBars = () => {
+    const levelValue = getLevelValue();
+    return (
+      <div className="level-bars">
+        {[1, 2, 3].map((barNum) => (
+          <div 
+            key={barNum}
+            className={`level-bar ${barNum <= levelValue ? 'active' : ''}`}
+            style={{ 
+              background: barNum <= levelValue ? getLevelColor() : 'var(--border)'
+            }}
+          ></div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderGlowIndicator = () => {
+    return (
+      <div 
+        className="skill-glow-indicator"
+        style={{
+          boxShadow: `0 0 20px ${getLevelColor()}40`,
+          border: `2px solid ${getLevelColor()}30`
+        }}
+      ></div>
+    );
+  };
+
   return (
     <div className="skill-level">
       <div className="level-info">
         <span className="level-text">{getLevelText()}</span>
-        <span className="level-percentage">{Math.round(getPercentage())}%</span>
+        {renderLevelBars()}
       </div>
-      <div className="level-bar-container">
-        <div 
-          className="level-fill" 
-          style={{ 
-            width: `${getPercentage()}%`,
-            background: getLevelColor()
-          }}
-        ></div>
-      </div>
+      {renderGlowIndicator()}
     </div>
   );
 };
@@ -222,10 +246,7 @@ export default function Home({ scrollToSection }) {
                     <span className="experience-tag">{experienceFormatted}</span>
                   </div>
                   <p>{skill.description}</p>
-                  <SkillLevel 
-                    level={skill.level} 
-                    experienceMonths={experienceMonths}
-                  />
+                  <SkillLevel level={skill.level} />
                   <div className="skill-meta">
                     <span className="meta-item">
                       <Icon name="rocket" className="meta-icon" />

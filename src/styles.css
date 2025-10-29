@@ -81,8 +81,70 @@ body {
   position: relative;
 }
 
+/* ------======Стили индикации=======------ */
+.skill-level {
+  position: relative;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
 
-/* Стили иконок */
+.skill-level:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.level-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+.level-bars {
+  display: flex;
+  gap: 6px;
+}
+
+.level-bar {
+  width: 22px;
+  height: 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.level-bar.active {
+  background: linear-gradient(90deg, #6e45e2, #89d4cf);
+  transform: scaleY(1.1);
+  box-shadow: 0 0 8px rgba(110, 69, 226, 0.5);
+}
+
+.level-bar.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* -------========== Стили иконок ========--------*/
 .icon {
   display: inline-flex;
   align-items: center;

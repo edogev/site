@@ -24,11 +24,17 @@ const icons = {
       <circle cx="12" cy="10" r="3"/>
     </svg>
   ),
+
   rocket: (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M7.07 9.33C5.77 7.89 5 6.1 5 4.23 5 3.13 5.22 2.08 5.63 1.12 7.45 4.07 9.46 6.67 12 8.67c2.54-2 4.55-4.6 6.37-7.55.41.96.63 2.01.63 3.11 0 1.87-.77 3.66-2.07 5.1C15.9 10.5 15 12.16 15 14v4l3 3-3 3H9l-3-3 3-3v-4c0-1.84-.9-3.5-1.93-4.67z"/>
-    </svg>
-  ),
+  <svg width="16" height="16" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m24 20.956l-15.885-8.18L24 4.5l15.885 8.276z"/>
+    <path d="M17.246 17.437c-.095.57-.19 1.046-.19 1.617c0 3.9 3.14 6.944 6.944 6.944s6.944-3.14 6.944-6.944c0-.571-.095-1.047-.19-1.617"/>
+    <ellipse cx="24" cy="36.842" rx="14.173" ry="6.659"/>
+    <path d="M8.115 12.776v9.131"/>
+  </svg>
+),
+
+  
   calendar: (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>

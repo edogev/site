@@ -18,8 +18,6 @@ function App() {
       history.scrollRestoration = 'manual';
     }
 
-    // УБИРАЕМ принудительный скролл наверх здесь
-    // window.scrollTo(0, 0); // УДАЛИТЬ ЭТУ СТРОКУ
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -57,16 +55,6 @@ function App() {
     };
   }, [currentSection]);
 
-  // УБИРАЕМ отдельный useEffect для начального скролла
-  // useEffect(() => {
-  //   if (isInitialMount.current) {
-  //     isInitialMount.current = false;
-  //     window.scrollTo(0, 0);
-  //     setTimeout(() => {
-  //       window.scrollTo(0, 0);
-  //     }, 500);
-  //   }
-  // }, []);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
