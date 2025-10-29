@@ -267,7 +267,8 @@ export default function Home({ scrollToSection }) {
                   <div className="timeline-content">
                     <div className="job-header">
                       <h3>{job.position}</h3>
-                      <span className="job-duration">{experienceFormatted}</span>
+                      <span cl
+                      assName="job-duration">{experienceFormatted}</span>
                     </div>
                     <div className="company-info">
                       <span className="company-name">{job.company}</span>

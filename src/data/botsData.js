@@ -58,7 +58,7 @@ export const botsData = [
           "Автоматическое логирование действий",
           "Резервное копирование и экспорт данных"
         ],
-        image: "/api/placeholder/600/400"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/mercher/5-2-1024x857.png"
       },
       {
         title: "⚙️ Управление строительными проектами",
@@ -69,7 +69,7 @@ export const botsData = [
           "Контроль выполнения через фотоотчеты",
           "Прогресс выполнения в реальном времени"
         ],
-        image: "/api/placeholder/600/400"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/menu.png"
       },
       {
         title: "📸 Система фотоотчетов",
@@ -80,7 +80,7 @@ export const botsData = [
           "Архивирование фотоматериалов",
           "Просмотр фотоистории по объектам"
         ],
-        image: "/api/placeholder/600/400"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/created_task.png"
       },
       {
         title: "📈 Отчетность и аналитика",
@@ -91,7 +91,7 @@ export const botsData = [
           "Архивирование фотоотчетов по объектам",
           "Статистика по исполнителям и срокам"
         ],
-        image: "/api/placeholder/600/400"
+        image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/statistic.png"
       }
     ]
   }

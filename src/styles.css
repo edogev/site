@@ -81,6 +81,451 @@ body {
   position: relative;
 }
 
+
+
+/* Стили для */
+/* Enhanced Project Details Card */
+.project-details {
+  background: var(--bg-card);
+  border: 1px solid rgba(218, 220, 224, 0.8);
+  border-radius: var(--radius-2xl);
+  padding: 3rem;
+  box-shadow: 
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 8px 32px rgba(60, 64, 67, 0.12);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(10px);
+}
+
+.project-details::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    var(--primary) 0%, 
+    var(--accent) 50%, 
+    var(--secondary) 100%);
+  transform: scaleX(0);
+  transition: transform var(--transition-slow);
+}
+
+.project-details::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(26, 115, 232, 0.03) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+}
+
+.project-details:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    var(--shadow-xl),
+    var(--shadow-glow),
+    0 12px 40px rgba(60, 64, 67, 0.15);
+  border-color: rgba(26, 115, 232, 0.4);
+}
+
+.project-details:hover::before {
+  transform: scaleX(1);
+}
+
+.project-details:hover::after {
+  opacity: 1;
+}
+
+/* Project Header with Elegant Layout */
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.project-title {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.project-icon {
+  font-size: 3rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: var(--radius-xl);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    var(--shadow-md),
+    0 0 0 4px rgba(26, 115, 232, 0.1);
+  transition: all var(--transition-normal);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left var(--transition-slow);
+}
+
+.project-details:hover .project-icon::before {
+  left: 100%;
+}
+
+.project-details:hover .project-icon {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 
+    var(--shadow-lg),
+    0 0 0 6px rgba(26, 115, 232, 0.15),
+    var(--shadow-glow);
+}
+
+.project-title h3 {
+  color: var(--text-primary);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.project-title h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.project-details:hover .project-title h3::after {
+  width: 100px;
+}
+
+/* Technology Stack with Animated Badges */
+.project-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.tech-badge {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--text-white);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all var(--transition-fast);
+  box-shadow: 
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  backdrop-filter: blur(10px);
+}
+
+.tech-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left var(--transition-slow);
+}
+
+.tech-badge:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    var(--shadow-md),
+    var(--shadow-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.tech-badge:hover::before {
+  left: 100%;
+}
+
+/* Project Description with Enhanced Typography */
+.project-description {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  line-height: 1.7;
+  margin: 0;
+  opacity: 0.9;
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  background: var(--bg-glass-light);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(218, 220, 224, 0.6);
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(5px);
+}
+
+.project-description::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--primary);
+  opacity: 0.1;
+  position: absolute;
+  top: -1rem;
+  left: 1rem;
+  font-family: serif;
+  line-height: 1;
+}
+
+.project-details:hover .project-description {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(26, 115, 232, 0.3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Floating Animation Elements */
+.project-details .floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--primary-light) 0%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  opacity: 0;
+  animation: floatOrb 8s ease-in-out infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.project-details .floating-orb:nth-child(1) {
+  width: 100px;
+  height: 100px;
+  top: 20%;
+  right: 10%;
+  animation-delay: 0s;
+  background: radial-gradient(
+    circle,
+    var(--primary) 0%,
+    transparent 70%
+  );
+}
+
+.project-details .floating-orb:nth-child(2) {
+  width: 60px;
+  height: 60px;
+  bottom: 30%;
+  left: 5%;
+  animation-delay: -2s;
+  background: radial-gradient(
+    circle,
+    var(--accent) 0%,
+    transparent 70%
+  );
+}
+
+.project-details .floating-orb:nth-child(3) {
+  width: 80px;
+  height: 80px;
+  top: 60%;
+  right: 20%;
+  animation-delay: -4s;
+  background: radial-gradient(
+    circle,
+    var(--secondary) 0%,
+    transparent 70%
+  );
+}
+
+@keyframes floatOrb {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px) scale(1.1);
+    opacity: 0.1;
+  }
+}
+
+.project-details:hover .floating-orb {
+  opacity: 0.1;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .project-details {
+    padding: 2.5rem;
+  }
+  
+  .project-title h3 {
+    font-size: 2.25rem;
+  }
+  
+  .project-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-details {
+    padding: 2rem;
+  }
+  
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .project-title {
+    width: 100%;
+  }
+  
+  .project-title h3 {
+    font-size: 2rem;
+  }
+  
+  .project-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+  
+  .project-tech-stack {
+    justify-content: flex-start;
+    width: 100%;
+  }
+  
+  .project-description {
+    font-size: 1.125rem;
+    padding: 1.5rem;
+  }
+  
+  .project-description::before {
+    font-size: 3rem;
+    top: -0.5rem;
+    left: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-details {
+    padding: 1.5rem;
+  }
+  
+  .project-title {
+    gap: 1rem;
+  }
+  
+  .project-title h3 {
+    font-size: 1.75rem;
+  }
+  
+  .project-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.75rem;
+  }
+  
+  .tech-badge {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .project-description {
+    font-size: 1rem;
+    padding: 1.25rem;
+  }
+  
+  .floating-orb {
+    display: none; /* Hide on very small screens for performance */
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .project-details,
+  .project-icon,
+  .tech-badge,
+  .project-description,
+  .floating-orb {
+    transition: none;
+    animation: none;
+  }
+  
+  .project-details:hover {
+    transform: none;
+  }
+  
+  .project-details:hover .project-icon {
+    transform: none;
+  }
+  
+  .tech-badge:hover {
+    transform: none;
+  }
+}
+
+
 /* ------====== Обновленные стили индикации уровня =======------ */
 
 
