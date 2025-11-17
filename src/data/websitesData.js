@@ -7,7 +7,7 @@ export const websitesData = [
     images: {
       light: 'https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/sites/site_reeltor.png',
       // dark: 'URL_темной_темы_если_есть'
-    dark: 'https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/sites/site_reeltor_dark.png',
+      dark: 'https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/sites/site_reeltor_dark.png',
 
     }
   },
@@ -26,7 +26,7 @@ export const websitesData = [
     description: 'Современный сайт, который работает на вас 24/7 и привлекает новых клиентов.',
     images: {
       light: '',
-      dark: ''
+    //   dark: ''
     }
   },
 ];

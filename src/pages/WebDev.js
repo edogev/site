@@ -7,6 +7,8 @@ export default function WebDev({ embedded = false }) {
   const [isVisible, setIsVisible] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState(null);
+  const [lightboxSite, setLightboxSite] = useState(null);
+  const [lightboxTheme, setLightboxTheme] = useState('light');
   const [themeBySite, setThemeBySite] = useState({}); // { [id]: 'light'|'dark' }
   const sectionRef = useRef(null);
   const imgRef = useRef(null);
@@ -32,16 +34,39 @@ export default function WebDev({ embedded = false }) {
 
   useEffect(() => {
     const onKeyDown = (e) => {
-      if (lightboxOpen && e.key === 'Escape') {
+      if (!lightboxOpen) return;
+      if (e.key === 'Escape') {
         setLightboxOpen(false);
         setLightboxSrc(null);
+        setLightboxSite(null);
+        return;
+      }
+      if (e.key === '+') {
+        zoomIn();
+      } else if (e.key === '-') {
+        zoomOut();
+      } else if (e.key === '0') {
+        resetZoom();
+      } else if (e.key.toLowerCase && e.key.toLowerCase() === 'f') {
+        fitToScreen();
       }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [lightboxOpen]);
+  }, [lightboxOpen, scale, translate]);
 
-  const openImage = (src) => {
+  const resolveImageSrc = (site, theme) => {
+    if (!site) return '';
+    if (site.images && (site.images[theme] || site.images.light || site.images.dark)) {
+      return site.images[theme] || site.images.light || site.images.dark || '';
+    }
+    return site.image || '';
+  };
+
+  const openImageForSite = (site, initialTheme = 'light') => {
+    const src = resolveImageSrc(site, initialTheme);
+    setLightboxSite(site);
+    setLightboxTheme(initialTheme);
     setLightboxSrc(src);
     setLightboxOpen(true);
     setScale(1);
@@ -195,6 +220,20 @@ export default function WebDev({ embedded = false }) {
   const zoomIn = () => setScaleAtPoint(scale * 1.25, window.innerWidth / 2, window.innerHeight / 2);
   const zoomOut = () => setScaleAtPoint(scale / 1.25, window.innerWidth / 2, window.innerHeight / 2);
   const resetZoom = () => { setScale(1); setTranslate({ x: 0, y: 0 }); };
+  const fitToScreen = () => {
+    const container = contentRef.current;
+    const img = imgRef.current;
+    if (!container || !img) return;
+    const cRect = container.getBoundingClientRect();
+    const natW = img.naturalWidth || img.width;
+    const natH = img.naturalHeight || img.height;
+    if (!natW || !natH) return;
+    const maxW = cRect.width * 0.95;
+    const maxH = cRect.height * 0.95;
+    const sc = Math.min(maxW / natW, maxH / natH, 5);
+    setScale(sc);
+    setTranslate({ x: 0, y: 0 });
+  };
 
   const header = (
     <div className="section-header">
@@ -224,7 +263,7 @@ export default function WebDev({ embedded = false }) {
           <div key={site.id} className="webdev-card">
             <div
               className={`webdev-thumb ${!hasImage ? 'no-image' : ''}`}
-              onClick={hasImage ? () => openImage(imageSrc) : undefined}
+              onClick={hasImage ? () => openImageForSite(site, currentTheme) : undefined}
             >
               {hasImage ? (
                 <img src={imageSrc} alt={`${site.title} — ${currentTheme === 'dark' ? 'тёмная' : 'светлая'} тема`} loading="lazy" />
@@ -261,7 +300,7 @@ export default function WebDev({ embedded = false }) {
               <div className="webdev-actions">
                 <button
                   className="cta-button secondary"
-                  onClick={() => openImage(imageSrc)}
+                  onClick={() => openImageForSite(site, currentTheme)}
                   disabled={!hasImage}
                 >
                   <span>Открыть изображение</span>
@@ -312,15 +351,48 @@ export default function WebDev({ embedded = false }) {
 
             <div className="lightbox-toolbar">
               <button className="toolbar-btn" onClick={zoomOut} aria-label="Уменьшить"><span>-</span></button>
-              <button className="toolbar-btn" onClick={resetZoom} aria-label="Сбросить">100%</button>
+              <button className="toolbar-btn" onClick={resetZoom} aria-label="1:1">{`${Math.round(scale*100)}%`}</button>
               <button className="toolbar-btn" onClick={zoomIn} aria-label="Увеличить"><span>+</span></button>
+              <button className="toolbar-btn" onClick={fitToScreen} aria-label="Подогнать">Fit</button>
+
+              {lightboxSite && (
+                (() => {
+                  const hasLight = !!lightboxSite.images?.light && lightboxSite.images.light.trim() !== '';
+                  const hasDark = !!lightboxSite.images?.dark && lightboxSite.images.dark.trim() !== '';
+                  if (!hasLight && !hasDark) return null;
+                  return (
+                    <div className="theme-toggle" style={{ position: 'static' }}>
+                      <button
+                        className={`theme-chip ${lightboxTheme === 'light' ? 'active' : ''}`}
+                        onClick={() => {
+                          const next = 'light';
+                          setLightboxTheme(next);
+                          setLightboxSrc(resolveImageSrc(lightboxSite, next));
+                          setTranslate({ x: 0, y: 0 });
+                        }}
+                        disabled={!hasLight}
+                      >Light</button>
+                      <button
+                        className={`theme-chip ${lightboxTheme === 'dark' ? 'active' : ''}`}
+                        onClick={() => {
+                          const next = 'dark';
+                          setLightboxTheme(next);
+                          setLightboxSrc(resolveImageSrc(lightboxSite, next));
+                          setTranslate({ x: 0, y: 0 });
+                        }}
+                        disabled={!hasDark}
+                      >Dark</button>
+                    </div>
+                  );
+                })()
+              )}
             </div>
 
             {lightboxSrc && (
               <img
                 ref={imgRef}
                 src={lightboxSrc}
-                alt="Превью сайта"
+                alt={`Превью сайта (${lightboxTheme})`}
                 onDoubleClick={onDblClick}
                 onMouseDown={onMouseDown}
                 onClick={onImageClick}
