@@ -1,8 +1,9 @@
 // src/components/BotCarousel.js
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import Icon from './Icon';
 
-export default function BotCarousel({ slides }) {
+export default function BotCarousel({ slides, compact = false }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [carouselKey, setCarouselKey] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -68,6 +69,7 @@ export default function BotCarousel({ slides }) {
   };
 
   const openLightbox = (src) => {
+    if (!src || src.trim() === '') return; // не открываем без изображения
     setLightboxSrc(src);
     setIsLightboxOpen(true);
   };
@@ -112,7 +114,7 @@ export default function BotCarousel({ slides }) {
   return (
     <div
       key={carouselKey}
-      className="modern-carousel"
+      className={`modern-carousel ${compact ? 'compact' : ''}`}
       ref={containerRef}
       tabIndex={0}
       aria-label="Карусель слайдов"
@@ -141,16 +143,30 @@ export default function BotCarousel({ slides }) {
           <div className={`slide-content ${hasImage ? 'with-image' : 'text-only'}`}>
             <div className="slide-text">
               <h3>{currentSlideData?.title || "Заголовок отсутствует"}</h3>
-              <p>{currentSlideData?.content || "Описание отсутствует"}</p>
+              <p className={compact ? 'text-truncate-2' : ''}>{currentSlideData?.content || "Описание отсутствует"}</p>
               {currentSlideData?.features && (
-                <div className="slide-features">
-                  {currentSlideData.features.map((feature, index) => (
-                    <div key={index} className="feature-item">
-                      <Icon name="check" className="feature-icon" />
-                      <span>{feature}</span>
-                    </div>
-                  ))}
-                </div>
+                compact ? (
+                  <div className="feature-chips">
+                    {(currentSlideData.features || []).slice(0, 3).map((feature, index) => (
+                      <span key={index} className="chip chip-primary">
+                        <Icon name="check" className="feature-icon" />
+                        {feature}
+                      </span>
+                    ))}
+                    {currentSlideData.features.length > 3 && (
+                      <span className="chip chip-muted">+{currentSlideData.features.length - 3}</span>
+                    )}
+                  </div>
+                ) : (
+                  <div className="slide-features">
+                    {currentSlideData.features.map((feature, index) => (
+                      <div key={index} className="feature-item">
+                        <Icon name="check" className="feature-icon" />
+                        <span>{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                )
               )}
             </div>
             
@@ -169,13 +185,13 @@ export default function BotCarousel({ slides }) {
                 />
                 <div className="image-placeholder">
                   <Icon name="image" size={48} className="carousel-icon" />
-                  <p>Изображение не загружено</p>
+                  {!compact && <p>Изображение не загружено</p>}
                 </div>
               </div>
             ) : (
               <div className="no-image-message">
                 <Icon name="file" size={48} className="carousel-icon" />
-                <p>Детальная информация о функционале</p>
+                {!compact && <p>Детальная информация о функционале</p>}
               </div>
             )}
           </div>
@@ -206,17 +222,20 @@ export default function BotCarousel({ slides }) {
         </div>
       )}
 
-      {isLightboxOpen && (
-        <div className="lightbox-overlay" role="dialog" aria-modal="true" onClick={closeLightbox}>
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <button className="lightbox-close" aria-label="Закрыть" onClick={closeLightbox}>
-              <Icon name="x" />
-            </button>
-            {lightboxSrc && (
-              <img src={lightboxSrc} alt="Просмотр изображения" />
-            )}
+      {isLightboxOpen && lightboxSrc && createPortal(
+        (
+          <div className="lightbox-overlay" role="dialog" aria-modal="true" onClick={closeLightbox}>
+            <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+              <button className="lightbox-close" aria-label="Закрыть" onClick={closeLightbox}>
+                <Icon name="x" />
+              </button>
+              {lightboxSrc && (
+                <img src={lightboxSrc} alt="Просмотр изображения" />
+              )}
+            </div>
           </div>
-        </div>
+        ),
+        document.body
       )}
     </div>
   );

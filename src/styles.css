@@ -1784,7 +1784,7 @@ background: linear-gradient(135deg, var(--text-primary) 0%, var(--secondary) 100
   margin-top: auto;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 /* Стили для вкладок проектов */
@@ -2154,7 +2154,7 @@ button:focus-visible,
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2000;
+  z-index: 9999; /* Поверх любых CTA/фиксированных блоков */
 }
 .lightbox-content {
   position: relative;
@@ -2310,6 +2310,12 @@ button:focus-visible,
   box-shadow: var(--shadow-xl), var(--shadow-glow);
 }
 
+/* Компактный вариант CTA для заголовков */
+.cta-button.small {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+}
+
 .cta-button.secondary {
   background: var(--bg-glass-light);
   color: var(--primary);
@@ -2332,6 +2338,18 @@ button:focus-visible,
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.9);
   overflow: hidden;
+  position: relative;
+}
+
+.bot-details-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+  opacity: 0.8;
 }
 
 .details-header {
@@ -2340,6 +2358,8 @@ button:focus-visible,
   justify-content: space-between;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid rgba(218, 220, 224, 0.7);
+  background: linear-gradient(180deg, rgba(248,249,250,0.8) 0%, rgba(255,255,255,0.6) 100%);
+  backdrop-filter: blur(6px);
 }
 
 .details-header h3 {
@@ -2347,6 +2367,51 @@ button:focus-visible,
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
+}
+
+.details-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.details-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-glass-light);
+  border: 1px solid rgba(218,220,224,0.8);
+  box-shadow: var(--shadow-sm);
+}
+
+.details-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.details-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--bg-glass-light);
+  border: 1px solid rgba(218, 220, 224, 0.8);
+  color: var(--text-secondary);
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 .close-details-btn {
@@ -2367,9 +2432,18 @@ button:focus-visible,
   border-color: var(--primary);
 }
 
+/* Чуть светлее CTA в заголовке карточки */
+.details-title .cta-button.small.primary {
+  filter: brightness(1.05) saturate(0.95);
+  box-shadow: var(--shadow-md);
+}
+.details-title .cta-button.small.primary:hover {
+  box-shadow: var(--shadow-lg);
+}
+
 .details-content {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1fr;
   gap: 1.25rem;
   padding: 1.25rem;
 }
@@ -2388,6 +2462,156 @@ button:focus-visible,
   color: var(--text-secondary);
   line-height: 1.7;
   margin: 0 0 1rem 0;
+}
+
+.details-features {
+  margin: 0.75rem 0 1rem 0;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.feature-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.details-cta {
+  margin-top: 1rem;
+}
+
+/* Встраивание карусели в карточку деталей */
+.details-carousel .modern-carousel {
+  background: var(--bg-lighter);
+  border: 1px solid rgba(218,220,224,0.6);
+  box-shadow: var(--shadow-md);
+}
+
+/* Компактные улучшения для деталей */
+.details-header { padding: 0.75rem 1rem; }
+.details-content { gap: 1rem; padding: 1rem; }
+.details-info h4 { margin: 0.25rem 0 0.4rem 0; }
+.details-info p { margin-bottom: 0.6rem; }
+.details-cta { margin-top: 0.75rem; }
+
+/* Текстовые усечения */
+.text-truncate-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.text-truncate-4 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
+/* Ссылочная кнопка (минималистично) */
+.link-button {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  padding: 0;
+  cursor: pointer;
+}
+.link-button:hover { text-decoration: underline; }
+
+/* Чипы для фич/метрик */
+.feature-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  border: 1px solid rgba(218,220,224,0.8);
+  background: var(--bg-glass-light);
+  color: var(--text-secondary);
+}
+.chip-primary {
+  background: linear-gradient(135deg, rgba(26,115,232,0.08), rgba(26,115,232,0.05));
+  border-color: rgba(26,115,232,0.35);
+  color: var(--text-primary);
+}
+.chip-secondary {
+  background: linear-gradient(135deg, rgba(52,168,83,0.08), rgba(52,168,83,0.05));
+  border-color: rgba(52,168,83,0.35);
+  color: var(--text-primary);
+}
+.chip-accent {
+  background: linear-gradient(135deg, rgba(251,188,4,0.12), rgba(251,188,4,0.06));
+  border-color: rgba(251,188,4,0.35);
+  color: var(--text-primary);
+}
+.chip-muted {
+  opacity: 0.8;
+}
+
+/* Яркие бейджи технологий */
+.tech-tag {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--text-white);
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.tech-tag:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.tech-tag-more {
+  background: var(--bg-glass-light);
+  color: var(--text-secondary);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid rgba(218,220,224,0.8);
+}
+
+/* Компактный режим карусели */
+.modern-carousel.compact .carousel-nav-btn {
+  width: 36px;
+  height: 36px;
+}
+.modern-carousel.compact .slide-text h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+.modern-carousel.compact .slide-text p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.modern-carousel.compact .slide-content {
+  gap: 0.75rem;
+}
+.modern-carousel.compact .image-placeholder p {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .feature-list { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 901px) {
+  .feature-list { grid-template-columns: 1fr; }
 }
 
 /* ================= Carousel (базовые стили) ================= */

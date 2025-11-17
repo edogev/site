@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Icon from '../components/Icon';
 import { botsData } from '../data/botsData.js';
+import { personalInfo } from '../data/data.js';
 import BotCarousel from '../components/BotCarousel';
 import WebDev from './WebDev';
 
@@ -72,6 +73,7 @@ const BotsGrid = () => {
           <span>{botsData.length} примеров работ</span>
         </div>
       </div>
+
       <div className="bot-grid">
         {botsData.map((bot) => (
           <BotCard 
@@ -87,24 +89,63 @@ const BotsGrid = () => {
         <div className="bot-details-container" ref={detailsRef}>
           <div className="bot-details-card">
             <div className="details-header">
-              <h3>{selectedBot.name}</h3>
-              <button onClick={() => setSelectedBotId(null)} className="close-details-btn">
-                <Icon name="x" />
-              </button>
-            </div>
-            <div className="details-content">
-              <div className="details-carousel">
-                <BotCarousel slides={selectedBot.slides} />
+              <div className="details-title">
+                {(() => {
+                  const emoji = selectedBot.icon || '';
+                  const map = new Map([
+                    ['⭐', 'star'],
+                    ['🏗️', 'target'],
+                    ['🏘️', 'home'],
+                  ]);
+                  const iconName = map.get(emoji) || 'robot';
+                  return <span className="details-icon"><Icon name={iconName} /></span>;
+                })()}
+                <h3>{selectedBot.name}</h3>
+                {(() => {
+                  const tg = personalInfo?.contacts?.telegram || '';
+                  const handle = tg.startsWith('@') ? tg.slice(1) : tg;
+                  const telegramLink = handle ? `https://t.me/${handle}` : 'https://t.me/edogev';
+                  return (
+                    <a href={telegramLink} target="_blank" rel="noopener noreferrer" className="cta-button primary small">
+                      <Icon name="telegram" className="button-icon" />
+                      <span>Обсудить</span>
+                    </a>
+                  );
+                })()}
               </div>
+
+              <div className="details-actions">
+                <div className="details-meta">
+                  <span className="meta-chip">
+                    <Icon name="image" className="meta-icon" />
+                    {selectedBot.slides?.length || 0} слайда(ов)
+                  </span>
+                  <span className="meta-chip">
+                    <Icon name="rocket" className="meta-icon" />
+                    {selectedBot.technologies?.length || 0} технологий
+                  </span>
+                </div>
+                <button onClick={() => setSelectedBotId(null)} className="close-details-btn" aria-label="Закрыть">
+                  <Icon name="x" />
+                </button>
+              </div>
+            </div>
+
+            <div className="details-content">
               <div className="details-info">
-                <h4>Подробное описание:</h4>
+                <h4>Подробное описание</h4>
                 <p>{selectedBot.fullDescription || selectedBot.description}</p>
-                <h4>Технологии:</h4>
+
+                <h4>Технологии</h4>
                 <div className="bot-tech">
                   {selectedBot.technologies?.map((tech, idx) => (
                     <span className="tech-tag" key={idx}>{tech}</span>
                   ))}
                 </div>
+              </div>
+
+              <div className="details-carousel">
+                <BotCarousel slides={selectedBot.slides} />
               </div>
             </div>
           </div>

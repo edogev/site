@@ -1,5 +1,6 @@
 // src/pages/WebDev.js
 import { useEffect, useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { websitesData } from '../data/websitesData';
 import Icon from '../components/Icon';
 
@@ -65,6 +66,7 @@ export default function WebDev({ embedded = false }) {
 
   const openImageForSite = (site, initialTheme = 'light') => {
     const src = resolveImageSrc(site, initialTheme);
+    if (!src || src.trim() === '') return; // не открываем, если изображения нет
     setLightboxSite(site);
     setLightboxTheme(initialTheme);
     setLightboxSrc(src);
@@ -330,84 +332,87 @@ export default function WebDev({ embedded = false }) {
         </section>
       )}
 
-      {lightboxOpen && (
-        <div className="lightbox-overlay" role="dialog" aria-modal="true" onClick={closeImage}>
-          <div
-            className="lightbox-content"
-            ref={contentRef}
-            onClick={(e) => e.stopPropagation()}
-            onWheel={onWheel}
-            onMouseMove={onMouseMove}
-            onMouseUp={onMouseUp}
-            onMouseLeave={onMouseUp}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-            style={{ touchAction: 'none', overscrollBehavior: 'contain' }}
-          >
-            <button className="lightbox-close" aria-label="Закрыть" onClick={closeImage}>
-              <Icon name="x" />
-            </button>
+      {lightboxOpen && lightboxSrc && createPortal(
+        (
+          <div className="lightbox-overlay" role="dialog" aria-modal="true" onClick={closeImage}>
+            <div
+              className="lightbox-content"
+              ref={contentRef}
+              onClick={(e) => e.stopPropagation()}
+              onWheel={onWheel}
+              onMouseMove={onMouseMove}
+              onMouseUp={onMouseUp}
+              onMouseLeave={onMouseUp}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+              style={{ touchAction: 'none', overscrollBehavior: 'contain' }}
+            >
+              <button className="lightbox-close" aria-label="Закрыть" onClick={closeImage}>
+                <Icon name="x" />
+              </button>
 
-            <div className="lightbox-toolbar">
-              <button className="toolbar-btn" onClick={zoomOut} aria-label="Уменьшить"><span>-</span></button>
-              <button className="toolbar-btn" onClick={resetZoom} aria-label="1:1">{`${Math.round(scale*100)}%`}</button>
-              <button className="toolbar-btn" onClick={zoomIn} aria-label="Увеличить"><span>+</span></button>
-              <button className="toolbar-btn" onClick={fitToScreen} aria-label="Подогнать">Fit</button>
+              <div className="lightbox-toolbar">
+                <button className="toolbar-btn" onClick={zoomOut} aria-label="Уменьшить"><span>-</span></button>
+                <button className="toolbar-btn" onClick={resetZoom} aria-label="1:1">{`${Math.round(scale*100)}%`}</button>
+                <button className="toolbar-btn" onClick={zoomIn} aria-label="Увеличить"><span>+</span></button>
+                <button className="toolbar-btn" onClick={fitToScreen} aria-label="Подогнать">Fit</button>
 
-              {lightboxSite && (
-                (() => {
-                  const hasLight = !!lightboxSite.images?.light && lightboxSite.images.light.trim() !== '';
-                  const hasDark = !!lightboxSite.images?.dark && lightboxSite.images.dark.trim() !== '';
-                  if (!hasLight && !hasDark) return null;
-                  return (
-                    <div className="theme-toggle" style={{ position: 'static' }}>
-                      <button
-                        className={`theme-chip ${lightboxTheme === 'light' ? 'active' : ''}`}
-                        onClick={() => {
-                          const next = 'light';
-                          setLightboxTheme(next);
-                          setLightboxSrc(resolveImageSrc(lightboxSite, next));
-                          setTranslate({ x: 0, y: 0 });
-                        }}
-                        disabled={!hasLight}
-                      >Light</button>
-                      <button
-                        className={`theme-chip ${lightboxTheme === 'dark' ? 'active' : ''}`}
-                        onClick={() => {
-                          const next = 'dark';
-                          setLightboxTheme(next);
-                          setLightboxSrc(resolveImageSrc(lightboxSite, next));
-                          setTranslate({ x: 0, y: 0 });
-                        }}
-                        disabled={!hasDark}
-                      >Dark</button>
-                    </div>
-                  );
-                })()
+                {lightboxSite && (
+                  (() => {
+                    const hasLight = !!lightboxSite.images?.light && lightboxSite.images.light.trim() !== '';
+                    const hasDark = !!lightboxSite.images?.dark && lightboxSite.images.dark.trim() !== '';
+                    if (!hasLight && !hasDark) return null;
+                    return (
+                      <div className="theme-toggle" style={{ position: 'static' }}>
+                        <button
+                          className={`theme-chip ${lightboxTheme === 'light' ? 'active' : ''}`}
+                          onClick={() => {
+                            const next = 'light';
+                            setLightboxTheme(next);
+                            setLightboxSrc(resolveImageSrc(lightboxSite, next));
+                            setTranslate({ x: 0, y: 0 });
+                          }}
+                          disabled={!hasLight}
+                        >Light</button>
+                        <button
+                          className={`theme-chip ${lightboxTheme === 'dark' ? 'active' : ''}`}
+                          onClick={() => {
+                            const next = 'dark';
+                            setLightboxTheme(next);
+                            setLightboxSrc(resolveImageSrc(lightboxSite, next));
+                            setTranslate({ x: 0, y: 0 });
+                          }}
+                          disabled={!hasDark}
+                        >Dark</button>
+                      </div>
+                    );
+                  })()
+                )}
+              </div>
+
+              {lightboxSrc && (
+                <img
+                  ref={imgRef}
+                  src={lightboxSrc}
+                  alt={`Превью сайта (${lightboxTheme})`}
+                  onDoubleClick={onDblClick}
+                  onMouseDown={onMouseDown}
+                  onClick={onImageClick}
+                  style={{
+                    cursor: scale > 1 ? (draggingRef.current.isDragging ? 'grabbing' : 'grab') : 'zoom-out',
+                    transform: `translate(${translate.x}px, ${translate.y}px) scale(${scale})`,
+                    transition: draggingRef.current.isDragging ? 'none' : 'transform 0.15s ease',
+                    transformOrigin: 'center center',
+                    userSelect: 'none',
+                  }}
+                  draggable={false}
+                />
               )}
             </div>
-
-            {lightboxSrc && (
-              <img
-                ref={imgRef}
-                src={lightboxSrc}
-                alt={`Превью сайта (${lightboxTheme})`}
-                onDoubleClick={onDblClick}
-                onMouseDown={onMouseDown}
-                onClick={onImageClick}
-                style={{
-                  cursor: scale > 1 ? (draggingRef.current.isDragging ? 'grabbing' : 'grab') : 'zoom-out',
-                  transform: `translate(${translate.x}px, ${translate.y}px) scale(${scale})`,
-                  transition: draggingRef.current.isDragging ? 'none' : 'transform 0.15s ease',
-                  transformOrigin: 'center center',
-                  userSelect: 'none',
-                }}
-                draggable={false}
-              />
-            )}
           </div>
-        </div>
+        ),
+        document.body
       )}
     </>
   );
