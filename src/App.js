@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Home from './pages/Home';
 import Bots from './pages/Bots';
+import WebDev from './pages/WebDev';
 import BackgroundAnimation from './components/BackgroundAnimation';
 import './styles.css';
 
@@ -29,7 +30,7 @@ function App() {
       
       scrollTimeout.current = setTimeout(() => {
         // Определяем текущую секцию на основе скролла
-        const sections = ['home', 'skills', 'experience', 'projects'];
+        const sections = ['home', 'skills', 'experience', 'projects', 'webdev'];
         const current = sections.find(section => {
           const element = document.getElementById(section);
           if (element) {
@@ -106,6 +107,12 @@ function App() {
             >
               Проекты
             </button>
+            <button 
+              className={`nav-btn ${currentSection === 'webdev' ? 'active' : ''}`}
+              onClick={() => scrollToSection('webdev')}
+            >
+              Разработка сайтов
+            </button>
           </div>
         </div>
       </nav>
@@ -113,6 +120,7 @@ function App() {
       <main>
         <Home scrollToSection={scrollToSection} />
         <Bots />
+        <WebDev />
       </main>
 
       <button 

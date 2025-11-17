@@ -1,5 +1,6 @@
 // src/components/BotSelector.js
 import { memo } from 'react';
+import Icon from './Icon';
 
 const BotSelector = memo(({ bots, onSelect, selectedBot }) => {
   return (
@@ -30,6 +31,9 @@ const ProjectCard = memo(({ bot, isSelected, onSelect }) => {
     }
   };
 
+  const fullStars = Math.floor(bot.rating || 0);
+  const hasHalf = (bot.rating || 0) % 1 > 0;
+
   return (
     <div 
       className={`project-card ${isSelected ? 'selected' : ''}`}
@@ -46,7 +50,7 @@ const ProjectCard = memo(({ bot, isSelected, onSelect }) => {
       
       <div className="project-icon-wrapper">
         <div className="project-icon">
-          {bot.icon || '🤖'}
+          <Icon name="robot" size={36} className="icon-gradient" />
         </div>
         {/* Индикатор статуса проекта */}
         {bot.status && (
@@ -61,9 +65,11 @@ const ProjectCard = memo(({ bot, isSelected, onSelect }) => {
         <div className="project-header-mini">
           <h3>{bot.name}</h3>
           {bot.rating && (
-            <div className="project-rating">
-              {'⭐'.repeat(Math.floor(bot.rating))}
-              {bot.rating % 1 > 0 && '½'}
+            <div className="project-rating" aria-label={`Рейтинг ${bot.rating}`}>
+              {Array.from({ length: fullStars }).map((_, i) => (
+                <Icon key={i} name="star" size={14} className="badge-icon" />
+              ))}
+              {hasHalf && <Icon name="starHalf" size={14} className="badge-icon" />}
             </div>
           )}
         </div>
@@ -81,7 +87,7 @@ const ProjectCard = memo(({ bot, isSelected, onSelect }) => {
       </div>
       
       <div className="project-arrow">
-        <span className="arrow-icon">→</span>
+        <Icon name="arrow" className="button-icon" />
       </div>
 
       {/* Эффект свечения при наведении */}

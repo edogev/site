@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import BotSelector from '../components/BotSelector';
 import BotCarousel from '../components/BotCarousel';
+import Icon from '../components/Icon';
 import { botsData } from '../data/botsData.js';
 
 export default function Bots() {
@@ -36,7 +37,7 @@ export default function Bots() {
             Telegram боты и автоматизированные системы для бизнеса и образования
           </p>
           <div className="projects-badge">
-            <span>🚀</span>
+            <Icon name="rocket" className="carousel-icon" />
             <span>{botsData.length} завершенных проекта</span>
           </div>
         </div>
@@ -56,7 +57,17 @@ export default function Bots() {
             <div className="project-details">
               <div className="project-header">
                 <div className="project-title">
-                  <span className="project-icon">{selectedBot.icon}</span>
+                  <span className="project-icon">
+                    {(() => {
+                      const emoji = selectedBot.icon || '';
+                      const map = new Map([
+                        ['⭐', 'star'],
+                        ['🏗️', 'target'],
+                      ]);
+                      const iconName = map.get(emoji) || 'robot';
+                      return <Icon name={iconName} size={36} className="icon-gradient" />;
+                    })()}
+                  </span>
                   <h3>{selectedBot.name}</h3>
                 </div>
                 <div className="project-tech-stack">
@@ -87,7 +98,7 @@ export default function Bots() {
                 className="cta-button primary"
               >
                 <span>Написать в Telegram</span>
-                <span className="button-icon">💬</span>
+                <Icon name="telegram" className="button-icon" />
               </a>
               <a 
                 href="https://dzerzhinskiy.hh.ru/resume/036e2e1bff0b44a6a10039ed1f4758324f6835" 
@@ -96,7 +107,7 @@ export default function Bots() {
                 className="cta-button secondary"
               >
                 <span>Ссылка на резюме</span>
-                <span className="button-icon">📄</span>
+                <Icon name="file" className="button-icon" />
               </a>
             </div>
           </div>
