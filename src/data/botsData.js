@@ -105,10 +105,6 @@ export const botsData = [
     "SQLite",
     "pandas",
     "whisper/t5",
-    "OpenAI API",
-    "python-telegram-bot",
-    "NLP",
-    "AI Voice Analysis"
   ],
   slides: [
     {
@@ -120,7 +116,7 @@ export const botsData = [
         "Логирование всех действий и изменений",
         "Умная маршрутизация задач между агентами"
       ],
-      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/mercher/menu.png"
+      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/AI_reeltor/menu.png"
     },
 
     {
@@ -132,7 +128,7 @@ export const botsData = [
         "Выделение ключевых параметров: бюджет, локация, сроки",
         "Автоматическое назначение задачи на риелтора"
       ],
-      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/ai_task.png"
+      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/AI_reeltor/ai_task.png"
     },
 
     {
@@ -144,7 +140,7 @@ export const botsData = [
         "Оценка качества коммуникации риелтора",
         "Генерация рекомендации и постановка follow-up задачи"
       ],
-      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/AI_analise.png"
+      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/AI_reeltor/AI_analise.png"
     },
 
     {
@@ -156,9 +152,20 @@ export const botsData = [
         "Оценка эффективности звонков",
         "Генерация Excel-отчётов для руководства"
       ],
-      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/stroy/admin_panel.png"
-    }
-  ]
-}
-
-];
+      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/AI_reeltor/voise_analise.png"
+    },
+{
+  title: "📊 Пример анализа звонка",
+  content: "AI автоматически анализирует запись звонка, извлекает потребности клиента, оценивает коммуникацию риелтора и формирует структурированное резюме для дальнейших действий.",
+  features: [
+    "Определение ключевой потребности клиента (покупка, продажа, аренда, инвестиции)",
+    "Выделение важных параметров: бюджет, сроки, район, тип недвижимости",
+    "Анализ уровня мотивации и стадии готовности клиента",
+    "Оценка качества коммуникации риелтора: вовлечённость, аргументация, работа с возражениями",
+    "Формирование краткого резюме звонка",
+    "Автоматическая постановка follow-up задачи на основании анализа",
+    "Выявление рисков сделки и рекомендаций по следующему шагу"
+  ],
+  image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/AI_reeltor/voise_analise.png"
+}]}
+]
