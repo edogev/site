@@ -220,10 +220,12 @@ export default function WebDev() {
               <div className="webdev-info">
                 <h3 className="webdev-title">{site.title}</h3>
                 <p className="webdev-desc">{site.description}</p>
-                <button className="cta-button secondary" onClick={() => openImage(site.image)}>
-                  <span>Открыть изображение</span>
-                  <Icon name="image" className="button-icon" />
-                </button>
+                <div className="webdev-actions">
+                  <button className="cta-button secondary" onClick={() => openImage(site.image)}>
+                    <span>Открыть изображение</span>
+                    <Icon name="image" className="button-icon" />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
