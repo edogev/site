@@ -152,7 +152,7 @@ export const botsData = [
         "Оценка эффективности звонков",
         "Генерация Excel-отчётов для руководства"
       ],
-      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/AI_reeltor/voise_analise.png"
+      image: "https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/AI_reeltor/admin_panel.png"
     },
 {
   title: "📊 Пример анализа звонка",
