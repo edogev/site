@@ -3,10 +3,11 @@ import { useEffect, useState, useRef } from 'react';
 import { websitesData } from '../data/websitesData';
 import Icon from '../components/Icon';
 
-export default function WebDev() {
+export default function WebDev({ embedded = false }) {
   const [isVisible, setIsVisible] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState(null);
+  const [themeBySite, setThemeBySite] = useState({}); // { [id]: 'light'|'dark' }
   const sectionRef = useRef(null);
   const imgRef = useRef(null);
   const contentRef = useRef(null);
@@ -195,42 +196,100 @@ export default function WebDev() {
   const zoomOut = () => setScaleAtPoint(scale / 1.25, window.innerWidth / 2, window.innerHeight / 2);
   const resetZoom = () => { setScale(1); setTranslate({ x: 0, y: 0 }); };
 
-  return (
-    <section id="webdev" ref={sectionRef} className={`projects-section ${isVisible ? 'visible' : ''}`}>
-      <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Разработка сайтов</h2>
-          <p className="section-subtitle">Примеры реализованных проектов: корпоративные сайты, лендинги, интернет-магазины</p>
-          <div className="projects-badge">
-            <Icon name="rocket" className="carousel-icon" />
-            <span>{websitesData.length} примеров работ</span>
-          </div>
-        </div>
+  const header = (
+    <div className="section-header">
+      <h2 className="section-title">Разработка сайтов</h2>
+      <p className="section-subtitle">Примеры реализованных проектов: корпоративные сайты, лендинги, интернет-магазины</p>
+      <div className="projects-badge">
+        <Icon name="rocket" className="carousel-icon" />
+        <span>{websitesData.length} примеров работ</span>
+      </div>
+    </div>
+  );
 
-        <div className="webdev-grid">
-          {websitesData.map((site) => (
-            <div key={site.id} className="webdev-card">
-              <div className="webdev-thumb" onClick={() => openImage(site.image)}>
-                <img
-                  src={site.image}
-                  alt={site.title}
-                  loading="lazy"
-                />
-              </div>
-              <div className="webdev-info">
-                <h3 className="webdev-title">{site.title}</h3>
-                <p className="webdev-desc">{site.description}</p>
-                <div className="webdev-actions">
-                  <button className="cta-button secondary" onClick={() => openImage(site.image)}>
-                    <span>Открыть изображение</span>
-                    <Icon name="image" className="button-icon" />
+  const grid = (
+    <div className="webdev-grid">
+      {websitesData.map((site) => {
+        const hasLight = !!site.images?.light && site.images.light.trim() !== '';
+        const hasDark = !!site.images?.dark && site.images.dark.trim() !== '';
+        const canToggle = hasLight && hasDark;
+        const currentTheme = themeBySite[site.id] || 'light';
+        const imageSrc = (currentTheme === 'dark' ? (site.images?.dark || '') : (site.images?.light || ''))
+          || site.image || '';
+        const hasImage = imageSrc && imageSrc.trim() !== '';
+
+        const setTheme = (theme) => setThemeBySite((prev) => ({ ...prev, [site.id]: theme }));
+
+        return (
+          <div key={site.id} className="webdev-card">
+            <div
+              className={`webdev-thumb ${!hasImage ? 'no-image' : ''}`}
+              onClick={hasImage ? () => openImage(imageSrc) : undefined}
+            >
+              {hasImage ? (
+                <img src={imageSrc} alt={`${site.title} — ${currentTheme === 'dark' ? 'тёмная' : 'светлая'} тема`} loading="lazy" />
+              ) : (
+                <div className="image-placeholder">
+                  <Icon name="image" size={48} className="carousel-icon" />
+                  <p>Нет изображения</p>
+                </div>
+              )}
+
+              {canToggle && (
+                <div className="theme-toggle" onClick={(e) => e.stopPropagation()}>
+                  <button
+                    className={`theme-chip ${currentTheme === 'light' ? 'active' : ''}`}
+                    onClick={() => setTheme('light')}
+                    aria-pressed={currentTheme === 'light'}
+                  >
+                    Light
+                  </button>
+                  <button
+                    className={`theme-chip ${currentTheme === 'dark' ? 'active' : ''}`}
+                    onClick={() => setTheme('dark')}
+                    aria-pressed={currentTheme === 'dark'}
+                  >
+                    Dark
                   </button>
                 </div>
+              )}
+            </div>
+
+            <div className="webdev-info">
+              <h3 className="webdev-title">{site.title}</h3>
+              <p className="webdev-desc">{site.description}</p>
+              <div className="webdev-actions">
+                <button
+                  className="cta-button secondary"
+                  onClick={() => openImage(imageSrc)}
+                  disabled={!hasImage}
+                >
+                  <span>Открыть изображение</span>
+                  <Icon name="image" className="button-icon" />
+                </button>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  return (
+    <>
+      {embedded ? (
+        <>
+          {header}
+          {grid}
+        </>
+      ) : (
+        <section id="webdev" ref={sectionRef} className={`projects-section ${isVisible ? 'visible' : ''}`}>
+          <div className="container">
+            {header}
+            {grid}
+          </div>
+        </section>
+      )}
 
       {lightboxOpen && (
         <div className="lightbox-overlay" role="dialog" aria-modal="true" onClick={closeImage}>
@@ -278,6 +337,6 @@ export default function WebDev() {
           </div>
         </div>
       )}
-    </section>
+    </>
   );
 }

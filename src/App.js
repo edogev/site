@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Home from './pages/Home';
-import Bots from './pages/Bots';
-import WebDev from './pages/WebDev';
+import Projects from './pages/Projects';
+import CTA from './components/CTA';
 import BackgroundAnimation from './components/BackgroundAnimation';
 import './styles.css';
 
@@ -30,7 +30,7 @@ function App() {
       
       scrollTimeout.current = setTimeout(() => {
         // Определяем текущую секцию на основе скролла
-        const sections = ['home', 'skills', 'experience', 'projects', 'webdev'];
+        const sections = ['home', 'skills', 'experience', 'projects'];
         const current = sections.find(section => {
           const element = document.getElementById(section);
           if (element) {
@@ -90,6 +90,12 @@ function App() {
               Главная
             </button>
             <button 
+              className={`nav-btn ${currentSection === 'projects' ? 'active' : ''}`}
+              onClick={() => scrollToSection('projects')}
+            >
+              Проекты
+            </button>
+            <button 
               className={`nav-btn ${currentSection === 'skills' ? 'active' : ''}`}
               onClick={() => scrollToSection('skills')}
             >
@@ -101,26 +107,14 @@ function App() {
             >
               Опыт
             </button>
-            <button 
-              className={`nav-btn ${currentSection === 'projects' ? 'active' : ''}`}
-              onClick={() => scrollToSection('projects')}
-            >
-              Проекты
-            </button>
-            <button 
-              className={`nav-btn ${currentSection === 'webdev' ? 'active' : ''}`}
-              onClick={() => scrollToSection('webdev')}
-            >
-              Разработка сайтов
-            </button>
           </div>
         </div>
       </nav>
 
       <main>
         <Home scrollToSection={scrollToSection} />
-        <Bots />
-        <WebDev />
+        <Projects />
+        <CTA />
       </main>
 
       <button 

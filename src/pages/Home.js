@@ -182,7 +182,7 @@ export default function Home({ scrollToSection }) {
               </button>
             </div>
 
-            <div className="contact-info">
+            <div className="contact-info" id="contact">
               <a href={`tel:${personalInfo.contacts.phone}`} className="contact-item">
                 <Icon name="phone" className="contact-icon" />
                 <span>{personalInfo.contacts.phone}</span>
