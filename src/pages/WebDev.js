@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { websitesData } from '../data/websitesData';
+import { personalInfo } from '../data/data.js';
 import Icon from '../components/Icon';
 
 export default function WebDev({ embedded = false }) {
@@ -313,6 +314,43 @@ export default function WebDev({ embedded = false }) {
           </div>
         );
       })}
+
+      {/* Промо-карточка: всегда последняя */}
+      <div className="webdev-card promo-card">
+        <div className="webdev-thumb no-image">
+          <div className="image-placeholder">
+            {/* SVG вместо изображения */}
+            <svg width="100" height="100" viewBox="0 0 120 120" fill="none">
+              <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="var(--primary)"/>
+                  <stop offset="100%" stopColor="var(--secondary)"/>
+                </linearGradient>
+              </defs>
+              <rect x="10" y="10" width="100" height="100" rx="18" stroke="url(#grad)" strokeWidth="4" fill="transparent"/>
+              <path d="M30 80 L50 55 L65 70 L90 40" stroke="url(#grad)" strokeWidth="6" fill="none" strokeLinecap="round"/>
+              <circle cx="90" cy="40" r="6" fill="var(--accent)"/>
+            </svg>
+          </div>
+        </div>
+        <div className="webdev-info">
+          <h3 className="webdev-title">Место для вашего сайта</h3>
+          <p className="webdev-desc">Современный сайт, который работает на вас 24/7 и привлекает новых клиентов.</p>
+          <div className="webdev-actions">
+            {(() => {
+              const tg = personalInfo?.contacts?.telegram || '';
+              const handle = tg.startsWith('@') ? tg.slice(1) : tg;
+              const telegramLink = handle ? `https://t.me/${handle}` : 'https://t.me/edogev';
+              return (
+                <a href={telegramLink} target="_blank" rel="noopener noreferrer" className="cta-button primary">
+                  <span>Связаться в Telegram</span>
+                  <Icon name="telegram" className="button-icon" />
+                </a>
+              );
+            })()}
+          </div>
+        </div>
+      </div>
     </div>
   );
 

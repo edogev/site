@@ -20,13 +20,4 @@ export const websitesData = [
       dark: 'https://raw.githubusercontent.com/edogev/site/refs/heads/main/src/img/sites/manibook_dark.png'
     }
   },
-  {
-    id: 3,
-    title: 'Место для вашего сайта',
-    description: 'Современный сайт, который работает на вас 24/7 и привлекает новых клиентов.',
-    images: {
-      light: '',
-    //   dark: ''
-    }
-  },
 ];

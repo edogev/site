@@ -2507,12 +2507,14 @@ button:focus-visible,
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
 }
 .text-truncate-4 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   overflow: hidden;
 }
 
@@ -2755,6 +2757,26 @@ button:focus-visible,
   justify-content: center;
   flex-direction: column;
   color: var(--text-secondary);
+}
+
+/* Промо-карточка для раздела сайтов */
+.promo-card .webdev-thumb { background: linear-gradient(135deg, rgba(26,115,232,0.06), rgba(52,168,83,0.06)); }
+.promo-card .webdev-info .cta-button.primary { filter: brightness(1.05) saturate(0.95); box-shadow: var(--shadow-md); }
+.promo-card .webdev-info .cta-button.primary:hover { box-shadow: var(--shadow-lg); }
+
+/* Адаптив для промо‑карточки */
+@media (max-width: 768px) {
+  .promo-card .webdev-thumb .image-placeholder { height: 180px; }
+  .promo-card .webdev-title { font-size: 1.1rem; }
+  .promo-card .webdev-desc { font-size: 0.95rem; }
+  .promo-card .webdev-actions { justify-content: center; }
+  .promo-card .webdev-actions .cta-button { width: 100%; max-width: 320px; }
+}
+@media (max-width: 480px) {
+  .promo-card .webdev-thumb .image-placeholder { height: 150px; }
+  .promo-card .webdev-title { font-size: 1rem; }
+  .promo-card .webdev-desc { font-size: 0.9rem; }
+  .promo-card .webdev-actions .cta-button { max-width: none; }
 }
 
 /* Theme toggle over webdev image */
