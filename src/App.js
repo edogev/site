@@ -1,7 +1,7 @@
 // [file name]: src/App.js
 
 import { useState, useEffect, useRef } from 'react';
-import Home from './pages/Home';
+import Home, { SkillsSection, ExperienceSection } from './pages/Home';
 import Projects from './pages/Projects';
 import CTA from './components/CTA';
 import BackgroundAnimation from './components/BackgroundAnimation';
@@ -30,7 +30,7 @@ function App() {
       
       scrollTimeout.current = setTimeout(() => {
         // Определяем текущую секцию на основе скролла
-        const sections = ['home', 'skills', 'experience', 'projects'];
+        const sections = ['home', 'projects', 'skills', 'experience'];
         const current = sections.find(section => {
           const element = document.getElementById(section);
           if (element) {
@@ -115,6 +115,8 @@ function App() {
         <Home scrollToSection={scrollToSection} />
         <Projects />
         <CTA />
+        <SkillsSection />
+        <ExperienceSection />
       </main>
 
       <button 

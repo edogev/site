@@ -180,13 +180,6 @@ export default function Projects() {
   return (
     <section id="projects" className={`projects-section ${isVisible ? 'visible' : ''}`}>
       <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Мои Проекты</h2>
-          <p className="section-subtitle">
-            От Telegram ботов до комплексных веб-приложений
-          </p>
-        </div>
-
         <div className="project-tabs">
           <button 
             className={`tab-btn ${activeTab === 'bots' ? 'active' : ''}`}

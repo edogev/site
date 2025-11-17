@@ -130,9 +130,7 @@ export default function Home({ scrollToSection }) {
   }, []);
 
   return (
-    <>
-      {/* Hero Section */}
-      <section id="home" className="hero-section" ref={heroRef}>
+    <section id="home" className="hero-section" ref={heroRef}>
         <div className="hero-background">
           <div className="floating-elements">
             <div className="floating-element el-1"></div>
@@ -199,97 +197,113 @@ export default function Home({ scrollToSection }) {
           </div>
         </div>
       </section>
+  );
+}
 
-      {/* Skills Section */}
-      <section id="skills" className="skills-section">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Технологический стек</h2>
-            <p className="section-subtitle">
-              Современные технологии и инструменты для решения сложных аналитических задач
-            </p>
-          </div>
-          
-<div className="skills-grid">
-  {skillsData.map((skill, index) => {
-    const experienceMonths = calculateExperience(skill.startDate);
-    const experienceFormatted = formatExperience(experienceMonths);
-    
-    return (
-      <div key={index} className="skill-card" style={{animationDelay: `${index * 0.1}s`}}>
-        <div className="skill-header">
-          <h3>{skill.name}</h3>
-          <span className="experience-tag">{experienceFormatted}</span>
+export function SkillsSection() {
+  return (
+    <section id="skills" className="skills-section">
+      <div className="container">
+        <div className="section-header">
+          <h2 className="section-title">Технологический стек</h2>
+          <p className="section-subtitle">
+            Современные технологии и инструменты для решения сложных аналитических задач
+          </p>
         </div>
-        <p>{skill.description}</p>
-        
-        <div className="skill-footer">
-          <div className="skill-meta">
-            <span className="meta-item">
-              <Icon name="rocket" className="meta-icon" />
-              {skill.level === 'advanced' ? 'Эксперт' : skill.level === 'intermediate' ? 'Опытный' : 'Начальный'}
-            </span>
-            <span className="meta-item">
-              <Icon name="calendar" className="meta-icon" />
-              с {new Date(skill.startDate).getFullYear()}
-            </span>
-          </div>
-          <SkillLevel level={skill.level} />
+
+        <div className="skills-grid">
+          {skillsData.map((skill, index) => {
+            const experienceMonths = calculateExperience(skill.startDate);
+            const experienceFormatted = formatExperience(experienceMonths);
+
+            return (
+              <div
+                key={index}
+                className="skill-card"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="skill-header">
+                  <h3>{skill.name}</h3>
+                  <span className="experience-tag">{experienceFormatted}</span>
+                </div>
+                <p>{skill.description}</p>
+
+                <div className="skill-footer">
+                  <div className="skill-meta">
+                    <span className="meta-item">
+                      <Icon name="rocket" className="meta-icon" />
+                      {skill.level === 'advanced'
+                        ? 'Эксперт'
+                        : skill.level === 'intermediate'
+                        ? 'Опытный'
+                        : 'Начальный'}
+                    </span>
+                    <span className="meta-item">
+                      <Icon name="calendar" className="meta-icon" />
+                      с {new Date(skill.startDate).getFullYear()}
+                    </span>
+                  </div>
+                  <SkillLevel level={skill.level} />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-    );
-  })}
-</div>
-        </div>
-      </section>
+    </section>
+  );
+}
 
-      {/* Experience Section */}
-      <section id="experience" className="experience-section">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Карьерный путь</h2>
-            <p className="section-subtitle">
-              Профессиональный рост и ключевые достижения в аналитике данных
-            </p>
-          </div>
-          
-          <div className="timeline">
-            {workExperience.map((job, index) => {
-              const experienceMonths = calculateExperience(job.startDate, job.endDate);
-              const experienceFormatted = formatExperience(experienceMonths);
-              const periodFormatted = formatPeriod(job.startDate, job.endDate);
-              
-              return (
-                <div key={index} className="timeline-item" style={{animationDelay: `${index * 0.15}s`}}>
-                  <div className="timeline-marker">
-                    <div className="marker-inner"></div>
+export function ExperienceSection() {
+  return (
+    <section id="experience" className="experience-section">
+      <div className="container">
+        <div className="section-header">
+          <h2 className="section-title">Карьерный путь</h2>
+          <p className="section-subtitle">
+            Профессиональный рост и ключевые достижения в аналитике данных
+          </p>
+        </div>
+
+        <div className="timeline">
+          {workExperience.map((job, index) => {
+            const experienceMonths = calculateExperience(job.startDate, job.endDate);
+            const experienceFormatted = formatExperience(experienceMonths);
+            const periodFormatted = formatPeriod(job.startDate, job.endDate);
+
+            return (
+              <div
+                key={index}
+                className="timeline-item"
+                style={{ animationDelay: `${index * 0.15}s` }}
+              >
+                <div className="timeline-marker">
+                  <div className="marker-inner"></div>
+                </div>
+                <div className="timeline-content">
+                  <div className="job-header">
+                    <h3>{job.position}</h3>
+                    <span className="job-duration">{experienceFormatted}</span>
                   </div>
-                  <div className="timeline-content">
-                    <div className="job-header">
-                      <h3>{job.position}</h3>
-                      <span cl
-                      assName="job-duration">{experienceFormatted}</span>
-                    </div>
-                    <div className="company-info">
-                      <span className="company-name">{job.company}</span>
-                      <span className="job-period">{periodFormatted}</span>
-                    </div>
-                    <ul className="responsibilities">
-                      {job.responsibilities.map((resp, respIndex) => (
-                        <li key={respIndex}>{resp}</li>
-                      ))}
-                    </ul>
-                    <div className="achievement-badge">
-                      <Icon name="target" className="badge-icon" />
-                      <span>Успешных проектов: {job.responsibilities.length}</span>
-                    </div>
+                  <div className="company-info">
+                    <span className="company-name">{job.company}</span>
+                    <span className="job-period">{periodFormatted}</span>
+                  </div>
+                  <ul className="responsibilities">
+                    {job.responsibilities.map((resp, respIndex) => (
+                      <li key={respIndex}>{resp}</li>
+                    ))}
+                  </ul>
+                  <div className="achievement-badge">
+                    <Icon name="target" className="badge-icon" />
+                    <span>Успешных проектов: {job.responsibilities.length}</span>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
