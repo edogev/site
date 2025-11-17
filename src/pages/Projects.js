@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Icon from '../components/Icon';
 import { botsData } from '../data/botsData.js';
+import { websitesData } from '../data/websitesData';
 import { personalInfo } from '../data/data.js';
 import BotCarousel from '../components/BotCarousel';
 import WebDev from './WebDev';
@@ -158,6 +159,22 @@ const BotsGrid = () => {
 export default function Projects() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeTab, setActiveTab] = useState('bots');
+  const tabs = [
+    {
+      id: 'bots',
+      title: 'Боты / Автоматизация',
+      subtitle: `${botsData.length} проекта`,
+      hint: 'Telegram, CRM и интеграции',
+      icon: 'robot'
+    },
+    {
+      id: 'sites',
+      title: 'Сайты',
+      subtitle: `${websitesData.length} проекта`,
+      hint: 'Лендинги и веб-приложения',
+      icon: 'layout'
+    }
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -180,21 +197,26 @@ export default function Projects() {
   return (
     <section id="projects" className={`projects-section ${isVisible ? 'visible' : ''}`}>
       <div className="container">
-        <div className="project-tabs">
-          <button 
-            className={`tab-btn ${activeTab === 'bots' ? 'active' : ''}`}
-            onClick={() => setActiveTab('bots')}
-          >
-            <Icon name="robot" className="tab-icon" />
-            Боты/Автоматизация
-          </button>
-          <button 
-            className={`tab-btn ${activeTab === 'sites' ? 'active' : ''}`}
-            onClick={() => setActiveTab('sites')}
-          >
-            <Icon name="layout" className="tab-icon" />
-            Сайты
-          </button>
+        <div className="project-tabs" role="tablist" aria-label="Категории проектов">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`tab-btn ${activeTab === tab.id ? 'active' : ''}`}
+              onClick={() => setActiveTab(tab.id)}
+              role="tab"
+              aria-selected={activeTab === tab.id}
+            >
+              <span className="tab-icon-badge">
+                <Icon name={tab.icon} className="tab-icon" size={28} />
+              </span>
+              <span className="tab-text">
+                <span className="tab-title">{tab.title}</span>
+                <span className="tab-subtitle">{tab.subtitle}</span>
+                <span className="tab-hint">{tab.hint}</span>
+              </span>
+              <span className="tab-indicator" aria-hidden="true"></span>
+            </button>
+          ))}
         </div>
 
         <div className="tab-content">
